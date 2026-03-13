@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Lite | Digital Storefront</title>
+    <title>Pizza Lite | Secure Ordering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff4757;
-            --bg: #0a0a0a;
-            --card-bg: #1a1a1a;
+            --bg: #0d0d0d;
+            --card: #1a1a1a;
             --text: #ffffff;
-            --accent: #2ecc71;
+            --success: #2ed573;
         }
 
         body {
@@ -18,14 +19,14 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
         }
 
-        /* App-like Header */
+        /* App Header */
         header {
             position: sticky;
             top: 0;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(10px);
             padding: 20px;
             text-align: center;
@@ -33,116 +34,178 @@
             z-index: 1000;
         }
 
-        h1 { margin: 0; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
-
-        /* Category Navbar */
-        .categories {
-            display: flex;
-            overflow-x: auto;
-            padding: 15px;
-            gap: 10px;
-            white-space: nowrap;
-        }
-
-        .cat-item {
-            background: var(--card-bg);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #333;
-        }
+        h1 { margin: 0; font-size: 1.4rem; letter-spacing: 3px; color: var(--primary); }
 
         /* Menu Section */
-        .container { padding: 15px; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
         
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .card {
-            background: var(--card-bg);
+        .menu-item {
+            display: flex;
+            background: var(--card);
             border-radius: 15px;
+            margin-bottom: 15px;
             overflow: hidden;
             border: 1px solid #222;
         }
 
-        .card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-        }
+        .menu-item img { width: 100px; height: 100px; object-fit: cover; }
 
-        .details { padding: 12px; }
-        .item-name { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
-        .price { color: var(--primary); font-weight: bold; }
+        .info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .name { font-weight: bold; font-size: 1rem; }
+        .price { color: var(--primary); font-weight: bold; margin-top: 4px; }
 
-        /* Floating Action Buttons */
-        .fab-container {
-            position: fixed;
-            bottom: 25px;
-            right: 20px;
-            left: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 2000;
-        }
-
-        .btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
+        .add-btn {
+            background: var(--primary);
             color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            align-self: center;
+            margin-right: 15px;
         }
 
-        .btn-call { background: var(--accent); }
-        .btn-wa { background: var(--primary); }
+        /* Floating Cart Bar (The Swiggy Look) */
+        #cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: var(--success);
+            padding: 18px;
+            border-radius: 12px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 2000;
+            cursor: pointer;
+        }
 
+        /* Checkout Overlay */
+        #checkout-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            display: none;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .form-card {
+            background: #222;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 450px;
+            margin: 40px auto;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: #111;
+            border: 1px solid #444;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .cancel { text-align: center; margin-top: 15px; color: #888; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>PIZZA LITE</h1>
-    </header>
+<header><h1>PIZZA LITE</h1></header>
 
-    <div class="categories">
-        <div class="cat-item">🔥 Bestsellers</div>
-        <div class="cat-item">🍕 Pizzas</div>
-        <div class="cat-item">🍔 Burgers</div>
-        <div class="cat-item">🥤 Shakes</div>
-    </div>
+<div class="container">
+    <h3 style="color: #888; font-size: 0.9rem;">POPULAR ITEMS</h3>
 
-    <div class="container">
-        <div class="menu-grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" alt="Pizza">
-                <div class="details">
-                    <div class="item-name">Margherita</div>
-                    <div class="price">₹199</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Burger">
-                <div class="details">
-                    <div class="item-name">Veg Cheese Burger</div>
-                    <div class="price">₹129</div>
-                </div>
-            </div>
+    <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200" alt="Pizza">
+        <div class="info">
+            <div class="name">Classic Margherita</div>
+            <div class="price">₹199</div>
         </div>
+        <button class="add-btn" onclick="addToCart('Margherita', 199)">ADD</button>
     </div>
 
-    <div class="fab-container">
-        <a href="tel:+91XXXXXXXXXX" class="btn btn-call">📞 Call Now</a>
-        <a href="https://wa.me/91XXXXXXXXXX?text=Hi, I want to order..." class="btn btn-wa">💬 WhatsApp</a>
+    <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200" alt="Burger">
+        <div class="info">
+            <div class="name">Cheese Lava Burger</div>
+            <div class="price">₹149</div>
+        </div>
+        <button class="add-btn" onclick="addToCart('Cheese Lava Burger', 149)">ADD</button>
     </div>
+</div>
+
+<div id="cart-bar" onclick="showCheckout()">
+    <span id="items-count">0 ITEMS</span>
+    <span>VIEW CART • <span id="total-price">₹0</span></span>
+</div>
+
+<div id="checkout-overlay">
+    <div class="form-card">
+        <h2 style="margin-top:0;">Secure Order</h2>
+        <p style="color: #aaa; font-size: 0.9rem;">Your number is kept private and sent only to our kitchen.</p>
+        
+        <form action="https://formspree.io/f/YOUR_ID" method="POST">
+            <input type="hidden" name="Full_Order" id="hidden-order">
+            <label>Name</label>
+            <input type="text" name="Customer_Name" required placeholder="Ex: Rahul">
+            
+            <label>Phone (Private)</label>
+            <input type="tel" name="Phone" required placeholder="For delivery updates">
+            
+            <label>Delivery Address</label>
+            <textarea name="Address" rows="3" required placeholder="House No, Ward No..."></textarea>
+            
+            <button type="submit" class="submit-btn">PLACE ORDER</button>
+            <div class="cancel" onclick="hideCheckout()">Go Back</div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let cart = [];
+
+    function addToCart(name, price) {
+        cart.push({name, price});
+        updateCart();
+    }
+
+    function updateCart() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        document.getElementById('items-count').innerText = cart.length + " ITEMS";
+        document.getElementById('total-price').innerText = "₹" + total;
+        document.getElementById('cart-bar').style.display = cart.length > 0 ? 'flex' : 'none';
+        
+        // Prepare data for the manager
+        document.getElementById('hidden-order').value = cart.map(i => i.name).join(", ") + " | Total: ₹" + total;
+    }
+
+    function showCheckout() { document.getElementById('checkout-overlay').style.display = 'block'; }
+    function hideCheckout() { document.getElementById('checkout-overlay').style.display = 'none'; }
+</script>
 
 </body>
 </html>
