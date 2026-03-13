@@ -3,131 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Lite | Premium Digital Menu</title>
+    <title>Pizza Lite | Digital Storefront</title>
     <style>
-        /* Modern Dark Theme */
         :root {
-            --primary: #ff4757; /* Pizza Red */
-            --bg: #0f0f0f;
-            --card-bg: rgba(255, 255, 255, 0.05);
+            --primary: #ff4757;
+            --bg: #0a0a0a;
+            --card-bg: #1a1a1a;
             --text: #ffffff;
+            --accent: #2ecc71;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            line-height: 1.6;
+            padding-bottom: 100px;
         }
 
-        /* Hero Section */
+        /* App-like Header */
         header {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px;
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(to bottom, rgba(255, 71, 87, 0.2), var(--bg));
+            border-bottom: 1px solid #333;
+            z-index: 1000;
         }
 
-        h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; }
-        .tagline { color: #aaa; font-size: 1rem; }
+        h1 { margin: 0; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
 
-        /* Menu Grid */
-        .container { max-width: 800px; margin: auto; padding: 20px; }
+        /* Category Navbar */
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .cat-item {
+            background: var(--card-bg);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #333;
+        }
+
+        /* Menu Section */
+        .container { padding: 15px; }
         
-        .section-title {
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-            margin: 40px 0 20px;
-        }
-
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .card {
             background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #222;
         }
-
-        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
 
         .card img {
             width: 100%;
-            height: 120px;
+            height: 140px;
             object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 10px;
         }
 
-        .item-name { font-weight: bold; font-size: 1.1rem; margin: 5px 0; }
-        .price { color: var(--primary); font-size: 1.2rem; font-weight: 800; }
+        .details { padding: 12px; }
+        .item-name { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
+        .price { color: var(--primary); font-weight: bold; }
 
-        /* Viral Order Button */
-        .cta-btn {
+        /* Floating Action Buttons */
+        .fab-container {
             position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
+            bottom: 25px;
+            right: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 2000;
+        }
+
+        .btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4);
-            z-index: 100;
-            width: 80%;
-            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+
+        .btn-call { background: var(--accent); }
+        .btn-wa { background: var(--primary); }
+
     </style>
 </head>
 <body>
 
     <header>
         <h1>PIZZA LITE</h1>
-        <p class="tagline">Lanka's Most Aesthetic Pizza Spot</p>
     </header>
 
+    <div class="categories">
+        <div class="cat-item">🔥 Bestsellers</div>
+        <div class="cat-item">🍕 Pizzas</div>
+        <div class="cat-item">🍔 Burgers</div>
+        <div class="cat-item">🥤 Shakes</div>
+    </div>
+
     <div class="container">
-        <h2 class="section-title">Best Sellers</h2>
         <div class="menu-grid">
-            
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400" alt="Pizza">
-                <p class="item-name">Paneer Tikka Pizza</p>
-                <p class="price">₹249</p>
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" alt="Pizza">
+                <div class="details">
+                    <div class="item-name">Margherita</div>
+                    <div class="price">₹199</div>
+                </div>
             </div>
-
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400" alt="Burger">
-                <p class="item-name">Double Cheese Burger</p>
-                <p class="price">₹149</p>
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Burger">
+                <div class="details">
+                    <div class="item-name">Veg Cheese Burger</div>
+                    <div class="price">₹129</div>
+                </div>
             </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=400" alt="Pizza">
-                <p class="item-name">Chicken Supreme</p>
-                <p class="price">₹329</p>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400" alt="Shake">
-                <p class="item-name">Oreo Mudslide</p>
-                <p class="price">₹120</p>
-            </div>
-
         </div>
     </div>
 
-    <a href="https://wa.me/91XXXXXXXXXX?text=I'm%20ordering%20from%20the%20Digital%20Menu!" class="cta-btn">
-        🚀 ORDER VIA WHATSAPP
-    </a>
+    <div class="fab-container">
+        <a href="tel:+91XXXXXXXXXX" class="btn btn-call">📞 Call Now</a>
+        <a href="https://wa.me/91XXXXXXXXXX?text=Hi, I want to order..." class="btn btn-wa">💬 WhatsApp</a>
+    </div>
 
-    <div
+</body>
+</html>
