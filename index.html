@@ -23,7 +23,6 @@
             padding-bottom: 120px;
         }
 
-        /* Sleek Sticky Header */
         header {
             position: sticky;
             top: 0;
@@ -41,7 +40,6 @@
         .status-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; display: inline-block; margin-right: 5px; }
         .open-tag { font-size: 0.7rem; color: var(--success); font-weight: bold; }
 
-        /* Menu Grid */
         .container { padding: 20px; max-width: 600px; margin: auto; }
         
         .menu-item {
@@ -68,12 +66,8 @@
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .add-btn:active { transform: scale(0.9); background: var(--primary); }
-
-        /* The "Swiggy" Cart Bar */
         #cart-bar {
             position: fixed;
             bottom: 25px;
@@ -91,12 +85,8 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.6);
             z-index: 2000;
             cursor: pointer;
-            animation: slideUp 0.3s ease;
         }
 
-        @keyframes slideUp { from { bottom: -100px; } to { bottom: 25px; } }
-
-        /* Privacy-Focused Checkout */
         #checkout-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -140,10 +130,9 @@
             border-radius: 12px;
             font-weight: bold;
             font-size: 1rem;
-            cursor: pointer;
         }
 
-        .cancel { text-align: center; margin-top: 20px; color: #666; cursor: pointer; font-size: 0.9rem; }
+        .cancel { text-align: center; margin-top: 20px; color: #666; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -173,15 +162,6 @@
         </div>
         <button class="add-btn" onclick="addToCart('Cheese Lava Burger', 149)">ADD</button>
     </div>
-
-    <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=200" alt="Pizza">
-        <div class="info">
-            <div class="name">Chicken Supreme</div>
-            <div class="price">₹329</div>
-        </div>
-        <button class="add-btn" onclick="addToCart('Chicken Supreme', 329)">ADD</button>
-    </div>
 </div>
 
 <div id="cart-bar" onclick="showCheckout()">
@@ -192,7 +172,7 @@
 <div id="checkout-overlay">
     <div class="form-card">
         <h2 style="margin:0; font-size: 1.5rem;">Secure Checkout</h2>
-        <p style="color: #666; font-size: 0.85rem; line-height: 1.4;">Privacy Protected: Your details are sent directly to our kitchen dashboard and never shared with staff.</p>
+        <p style="color: #666; font-size: 0.85rem;">Privacy Protected: Your details are sent directly to our kitchen.</p>
         
         <form action="https://formspree.io/f/myknpkrw" method="POST">
             <input type="hidden" name="Order_Summary" id="hidden-order">
@@ -204,10 +184,8 @@
             <input type="tel" name="Customer_Phone" required placeholder="For delivery confirmation">
             
             <label>DELIVERY ADDRESS</label>
-            <textarea name="Customer_Address" rows="3" required placeholder="Street, Landmark, Ward No."></textarea>
+            <textarea name="Customer_Address" rows="3" required placeholder="Street, Ward No, Landmark"></textarea>
             
-            <input type="hidden" name="_next" value="https://luminalearnin.github.io/Pizza-lite/">
-
             <button type="submit" class="submit-btn">CONFIRM ORDER</button>
             <div class="cancel" onclick="hideCheckout()">← Back to Menu</div>
         </form>
@@ -220,19 +198,16 @@
     function addToCart(name, price) {
         cart.push({name, price});
         updateCart();
-        // Haptic feedback feel
-        if (window.navigator.vibrate) window.navigator.vibrate(50);
     }
 
     function updateCart() {
         const total = cart.reduce((sum, item) => sum + item.price, 0);
-        document.getElementById('items-count').innerText = cart.length + (cart.length === 1 ? " ITEM" : " ITEMS");
+        document.getElementById('items-count').innerText = cart.length + " ITEMS";
         document.getElementById('total-price').innerText = "₹" + total;
         document.getElementById('cart-bar').style.display = cart.length > 0 ? 'flex' : 'none';
         
-        // Form data preparation
         document.getElementById('hidden-order').value = 
-            cart.map(i => i.name).join(", ") + " | TOTAL BILL: ₹" + total;
+            cart.map(i => i.name).join(", ") + " | TOTAL: ₹" + total;
     }
 
     function showCheckout() { document.getElementById('checkout-overlay').style.display = 'block'; }
@@ -240,66 +215,8 @@
 </script>
 
 </body>
-</html>            cursor: pointer;
-            margin-left: 10px;
-            align-self: center;
-            margin-right: 15px;
-        }
-
-        /* Floating Cart Bar (The Swiggy Look) */
-        #cart-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            background: var(--success);
-            padding: 18px;
-            border-radius: 12px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 2000;
-            cursor: pointer;
-        }
-
-        /* Checkout Overlay */
-        #checkout-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 3000;
-            display: none;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-        }
-
-        .form-card {
-            background: #222;
-            padding: 25px;
-            border-radius: 20px;
-            max-width: 450px;
-            margin: 40px auto;
-        }
-
-        input, textarea {
-            width: 100%;
-            background: #111;
-            border: 1px solid #444;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 8px;
-            color: white;
-            box-sizing: border-box;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--success);
-            color: white;
+</html>
+;
             border: none;
             padding: 15px;
             margin-top: 20px;
